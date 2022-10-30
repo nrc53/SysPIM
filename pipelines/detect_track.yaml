@@ -1,0 +1,42 @@
+pipeline_name: detect_track
+components: 
+  video_decode:
+    inp_dim: []
+    occurences: 165
+    output_dim: [1280, 720, 3]
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 4000e-6
+  object_detector:
+    inp_dim: [512, 512, 3]
+    occurences: 164
+    output_dim: []
+    exec_engine: pim_accelerator
+    neural_network: ssd_mobilenet_v1
+    exec_time: None
+  obj_det_postprocess:
+    occurences: 164
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 1.14e-9
+  feature_extractor:
+    inp_dim: [128, 64, 3]
+    occurences: 294
+    exec_engine: pim_accelerator
+    neural_network: mars_small
+    exec_time: None
+  feat_ext_postprocess:
+    occurences: 164
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 3.05e-11
+  tracker:
+    occurences: 164
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 7000e-6
+  track_postprocess:
+    occurences: 164
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 13.8e-11
