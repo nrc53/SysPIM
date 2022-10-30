@@ -1,0 +1,32 @@
+pipeline_name: face_keypoints
+components: 
+  video_decode:
+    inp_dim: []
+    occurences: 138
+    output_dim: [1280, 720, 3]
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 4200e-6
+  image_preprocessing:
+    occurences: 137
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 25263e-9  
+  face_detector:
+    inp_dim: [1280, 720, 3]
+    occurences: 137
+    output_dim: []
+    exec_engine: pim_accelerator
+    neural_network: face_ssd_mobilenet_v1
+    exec_time: None
+  pose_detector:
+    inp_dim: [256, 256, 3]
+    occurences: 115
+    exec_engine: pim_accelerator
+    neural_network: prnet_resnet
+    exec_time: None
+  pose_postprocess:
+    occurences: 115
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 5232e-6

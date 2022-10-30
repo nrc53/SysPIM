@@ -1,0 +1,31 @@
+pipeline_name: pose_estimation
+components: 
+  video_decode:
+    inp_dim: []
+    occurences: 394
+    output_dim: [384, 288, 3]
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 895.3e-6 
+  pose_estimation:
+    inp_dim: [384, 288, 3]
+    occurences: 393
+    output_dim: []
+    exec_engine: pim_accelerator
+    neural_network: open_pose
+    exec_time: None
+  paf_esmitation:
+    occurences: 393
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 4553.5e-6
+  tracker:
+    occurences: 393
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 1520.8e-6
+  classifier:
+    occurences: 393
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 7704e-6

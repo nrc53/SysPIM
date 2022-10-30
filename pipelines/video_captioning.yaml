@@ -1,0 +1,38 @@
+pipeline_name: video_captioning
+components: 
+  video_decode:
+    inp_dim: []
+    occurences: 271
+    output_dim: [480, 360, 3]
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 1734.3e-6
+  image_resize:
+    occurences: 270
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 1706.3e-6
+  mean_substraction:
+    occurences: 270
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 1403.4e-6
+  feature_extraction:
+    inp_dim: [227, 227, 3]
+    occurences: 270
+    output_dim: []
+    exec_engine: pim_accelerator
+    neural_network: alexnet
+    exec_time: None
+  lstm:
+    inp_dim: [1, 1000]
+    occurences: 2226
+    output_dim: []
+    exec_engine: pim_accelerator
+    neural_network: video_captioning_rnn
+    exec_time: None
+  arg_max:
+    occurences: 14
+    exec_engine: cpu
+    neural_network: None
+    exec_time: 2582.1e-6
