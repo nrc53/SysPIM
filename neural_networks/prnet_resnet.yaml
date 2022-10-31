@@ -1,0 +1,625 @@
+network_name: prnet_resnet
+network_type: classification
+inp_dims: [256, 256, 3]
+layers:
+  conv_1:
+    type: conv_normal
+    kernel: [4, 4, 3, 16]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_2, conv_5] # output_dim: [256, 256, 16] 
+    num: 0 
+# Residual Block 0
+  conv_2:
+    type: conv_normal
+    kernel: [1, 1, 16, 16]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_3] # output_dim: [256, 256, 16] 
+    num: 1
+  conv_3:
+    type: conv_normal
+    kernel: [4, 4, 16, 16]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_4] # output_dim: [128, 128, 16]  
+    num: 2
+  conv_4:
+    type: conv_normal
+    kernel: [1, 1, 16, 32]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_1] # output_dim: [128, 128, 32]
+    num: 3
+  conv_5:
+    type: conv_normal
+    kernel: [1, 1, 16, 32]
+    stride: 2
+    padding: -2
+    norm: None
+    activation: None
+    input: conv_1
+    output: [res_add_1] # output_dim: [128, 128, 32]
+    num: 4
+  res_add_1:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_6, res_add_2]
+    num: 5
+# Residual Block 1
+  conv_6:
+    type: conv_normal
+    kernel: [1, 1, 32, 16]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_7] # output_dim: [128, 128, 16] 
+    num: 6
+  conv_7:
+    type: conv_normal
+    kernel: [4, 4, 16, 16]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_8] # output_dim: [128, 128, 16] 
+    num: 7 
+  conv_8:
+    type: conv_normal
+    kernel: [1, 1, 16, 32]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_2] # output_dim: [128, 128, 32]
+    num: 8
+  res_add_2:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_9, conv_12] 
+    num: 9
+# Residual Block 2
+  conv_9:
+    type: conv_normal
+    kernel: [1, 1, 32, 32]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_10] # output_dim: [128, 128, 32] 
+    num: 10
+  conv_10:
+    type: conv_normal
+    kernel: [4, 4, 32, 32]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_11] # output_dim: [64, 64, 32]  
+    num: 11
+  conv_11:
+    type: conv_normal
+    kernel: [1, 1, 32, 64]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_3] # output_dim: [64, 64, 64]
+    num: 12
+  conv_12:
+    type: conv_normal
+    kernel: [1, 1, 32, 64]
+    stride: 2
+    padding: -2
+    norm: None
+    activation: None
+    input: res_add_2
+    output: [res_add_3] # output_dim: [64, 64, 64]
+    num: 13
+  res_add_3:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_13, res_add_4]
+    num: 14
+# Residual Block 3
+  conv_13:
+    type: conv_normal
+    kernel: [1, 1, 64, 32]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_14] # output_dim: [64, 64, 32] 
+    num: 15
+  conv_14:
+    type: conv_normal
+    kernel: [4, 4, 32, 32]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_15] # output_dim: [64, 64, 32]  
+    num: 16
+  conv_15:
+    type: conv_normal
+    kernel: [1, 1, 32, 64]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_4] # output_dim: [64, 64, 64]
+    num: 17
+  res_add_4:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_16, conv_19] 
+    num: 18
+# Residual Block 4
+  conv_16:
+    type: conv_normal
+    kernel: [1, 1, 64, 64]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_17] # output_dim: [64, 64, 64] 
+    num: 19
+  conv_17:
+    type: conv_normal
+    kernel: [4, 4, 64, 64]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_18] # output_dim: [32, 32, 64]  
+    num: 20
+  conv_18:
+    type: conv_normal
+    kernel: [1, 1, 64, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_5] # output_dim: [32, 32, 128]
+    num: 21
+  conv_19:
+    type: conv_normal
+    kernel: [1, 1, 64, 128]
+    stride: 2
+    padding: -2
+    norm: None
+    activation: None
+    input: res_add_4
+    output: [res_add_5] # output_dim: [32, 32, 128]
+    num: 22
+  res_add_5:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_20, res_add_6]
+    num: 23
+# Residual Block 5
+  conv_20:
+    type: conv_normal
+    kernel: [1, 1, 128, 64]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_21] # output_dim: [32, 32, 64] 
+    num: 24
+  conv_21:
+    type: conv_normal
+    kernel: [4, 4, 64, 64]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_22] # output_dim: [32, 32, 64] 
+    num: 25 
+  conv_22:
+    type: conv_normal
+    kernel: [1, 1, 64, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_6] # output_dim: [32, 32, 128]
+    num: 26
+  res_add_6:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_23, conv_26] 
+    num: 27
+# Residual Block 6
+  conv_23:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_24] # output_dim: [32, 32, 128] 
+    num: 28
+  conv_24:
+    type: conv_normal
+    kernel: [4, 4, 128, 128]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_25] # output_dim: [16, 16, 128]  
+    num: 29
+  conv_25:
+    type: conv_normal
+    kernel: [1, 1, 128, 256]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_7] # output_dim: [16, 16, 256]
+    num: 30
+  conv_26:
+    type: conv_normal
+    kernel: [1, 1, 128, 256]
+    stride: 2
+    padding: -2
+    norm: None
+    activation: None
+    input: res_add_6
+    output: [res_add_5] # output_dim: [16, 16, 256]
+    num: 31
+  res_add_7:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_27, res_add_8]
+    num: 32
+# Residual Block 7
+  conv_27:
+    type: conv_normal
+    kernel: [1, 1, 256, 128]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_28] # output_dim: [16, 16, 128] 
+    num: 33
+  conv_28:
+    type: conv_normal
+    kernel: [4, 4, 128, 128]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_29] # output_dim: [16, 16, 128]  
+    num: 34
+  conv_29:
+    type: conv_normal
+    kernel: [1, 1, 128, 256]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_8] # output_dim: [16, 16, 256]
+    num: 35
+  res_add_8:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_30, conv_33] 
+    num: 36
+# Residual Block 8
+  conv_30:
+    type: conv_normal
+    kernel: [1, 1, 256, 256]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_31] # output_dim: [16, 16, 256] 
+    num: 37
+  conv_31:
+    type: conv_normal
+    kernel: [4, 4, 256, 256]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_32] # output_dim: [8, 8, 256]  
+    num: 38
+  conv_32:
+    type: conv_normal
+    kernel: [1, 1, 256, 512]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_9] # output_dim: [8, 8, 512]
+    num: 39
+  conv_33:
+    type: conv_normal
+    kernel: [1, 1, 256, 512]
+    stride: 2
+    padding: -2
+    norm: None
+    activation: None
+    input: res_add_9
+    output: [res_add_5] # output_dim: [8, 8, 512]
+    num: 40
+  res_add_9:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_34, res_add_10]
+    num: 41
+# Residual Block 9
+  conv_34:
+    type: conv_normal
+    kernel: [1, 1, 512, 256]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_35] # output_dim: [8, 8, 256] 
+    num: 42
+  conv_35:
+    type: conv_normal
+    kernel: [4, 4, 256, 256]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_36] # output_dim: [8, 8, 256]  
+    num: 43
+  conv_36:
+    type: conv_normal
+    kernel: [1, 1, 256, 512]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer
+    output: [res_add_10] # output_dim: [8, 8, 512]
+    num: 44
+  res_add_10:
+    type: residual_add
+    input: prev_layer
+    norm: batch_norm
+    activation: ReLu
+    output: [conv_37]
+    num: 45
+# End of residual layers
+  conv_37:
+    type: conv_normal
+    kernel: [4, 4, 512, 512]
+    stride: 1
+    padding: 3
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_38] # output_dim: [8, 8, 512]  
+    num: 46
+  conv_38:
+    type: conv_normal
+    kernel: [4, 4, 512, 256]
+    stride: 1
+    padding: 11
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_39] # output_dim: [16, 16, 256]  
+    num: 47
+  conv_39:
+    type: conv_normal
+    kernel: [4, 4, 256, 256]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_40] # output_dim: [16, 16, 256]
+    num: 48
+  conv_40:
+    type: conv_normal
+    kernel: [4, 4, 256, 256]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_41] # output_dim: [16, 16, 256]
+    num: 49
+  conv_41:
+    type: conv_normal
+    kernel: [4, 4, 256, 128]
+    stride: 1
+    padding: 19
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_42] # output_dim: [32, 32, 128]
+    num: 50
+  conv_42:
+    type: conv_normal
+    kernel: [4, 4, 128, 128]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_43] # output_dim: [32, 32, 128]
+    num: 51
+  conv_43:
+    type: conv_normal
+    kernel: [4, 4, 128, 128]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_44] # output_dim: [32, 32, 128]
+    num: 52
+  conv_44:
+    type: conv_normal
+    kernel: [4, 4, 128, 128]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_45] # output_dim: [32, 32, 128]
+    num: 53
+  conv_46:
+    type: conv_normal
+    kernel: [4, 4, 128, 64]
+    stride: 1
+    padding: 27
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_47] # output_dim: [64, 64, 64]
+    num: 54
+  conv_47:
+    type: conv_normal
+    kernel: [4, 4, 64, 64]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_48] # output_dim: [64, 64, 64]
+    num: 55
+  conv_48:
+    type: conv_normal
+    kernel: [4, 4, 64, 64]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_49] # output_dim: [64, 64, 64]
+    num: 56
+  conv_49:
+    type: conv_normal
+    kernel: [4, 4, 64, 32]
+    stride: 1
+    padding: 61
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_50] # output_dim: [128, 128, 32]
+    num: 57
+  conv_50:
+    type: conv_normal
+    kernel: [4, 4, 32, 32]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_51] # output_dim: [128, 128, 32]
+    num: 58
+  conv_51:
+    type: conv_normal
+    kernel: [4, 4, 32, 16]
+    stride: 1
+    padding: 125
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_52] # output_dim: [256, 256, 16]
+    num: 59
+  conv_52:
+    type: conv_normal
+    kernel: [4, 4, 16, 16]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_53] # output_dim: [256, 256, 16]
+    num: 60
+  conv_53:
+    type: conv_normal
+    kernel: [4, 4, 16, 3]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_54] # output_dim: [256, 256, 3]
+    num: 61
+  conv_54:
+    type: conv_normal
+    kernel: [4, 4, 3, 3]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_55] # output_dim: [256, 256, 3]
+    num: 62
+  conv_55:
+    type: conv_normal
+    kernel: [4, 4, 3, 3]
+    stride: 1
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_56] # output_dim: [256, 256, 3]
+    num: 63

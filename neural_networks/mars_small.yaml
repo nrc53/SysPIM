@@ -1,0 +1,189 @@
+network_name: mars_small  
+network_type: feature_extraction
+inp_dims: [128, 64, 3]
+layers:
+  conv_1:
+    type: conv_normal
+    kernel: [3, 3, 3, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer  
+    output: [conv_2]
+    num: 0 
+  conv_2:
+    type: conv_normal
+    kernel: [3, 3, 32, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [pool_1]
+    num: 1
+  pool_1:
+    type: pool
+    pool_op: max
+    kernel: [3, 3]
+    stride: [2, 2]
+    input: prev_layer
+    output: [conv_3]
+    num: 2
+  conv_3:
+    type: conv_normal
+    kernel: [3, 3, 32, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_4]
+    num: 3
+  conv_4:
+    type: conv_normal
+    kernel: [3, 3, 32, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [res_add_1]
+    num: 4
+  res_add_1:
+    type: residual_add
+    input: -2
+    output: [conv_5]
+    num: 5
+  conv_5:
+    type: conv_normal
+    kernel: [3, 3, 32, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_6]
+    num: 6
+  conv_6:
+    type: conv_normal
+    kernel: [3, 3, 32, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [res_add_2]
+    num: 7
+  res_add_2:
+    type: residual_add
+    input: -2
+    output: [conv_7]
+    num: 8
+  conv_7:
+    type: conv_normal
+    kernel: [3, 3, 32, 64]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_8]
+    num: 9
+  conv_8:
+    type: conv_normal
+    kernel: [3, 3, 64, 64]
+    stride: 2
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [res_add_3]
+    num: 10
+  res_add_3:
+    type: residual_add
+    input: -2
+    output: [conv_9]
+    num: 11
+  conv_9:
+    type: conv_normal
+    kernel: [3, 3, 64, 64]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_10]
+    num: 12
+  conv_10:
+    type: conv_normal
+    kernel: [3, 3, 64, 64]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [res_add_4]
+    num: 13
+  res_add_4:
+    type: residual_add
+    input: -2
+    output: [conv_11]
+    num: 14
+  conv_11:
+    type: conv_normal
+    kernel: [3, 3, 64, 128]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_12]
+    num: 15
+  conv_12:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 2
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [res_add_%]
+    num: 16
+  res_add_5:
+    type: residual_add
+    input: -2
+    output: [conv_13]
+    num: 17
+  conv_13:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [conv_14]
+    num: 18
+  conv_14:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+    output: [res_add_6]
+    num: 19
+  res_add_6:
+    type: residual_add
+    input: -2
+    output: [fc_1]
+    num: 20
+  fc_1:
+    type: fc
+    kernel: [13440, 128]
+    activation: None
+    input: prev_layer
+    output: []
+    num: 21

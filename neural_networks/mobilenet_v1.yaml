@@ -1,0 +1,220 @@
+network_name: mobilenet_v1
+network_type: classification
+inp_dims: [300, 300, 3]
+layers:
+  conv_1:
+    type: conv_normal
+    kernel: [3, 3, 3, 32]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer  
+  conv_2:
+    type: conv_dw
+    kernel: [3, 3, 32]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer  
+  conv_3:
+    type: conv_normal
+    kernel: [1, 1, 32, 64]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer  
+  conv_4:
+    type: conv_dw
+    kernel: [3, 3, 64]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_5:
+    type: conv_normal
+    kernel: [1, 1, 64, 128]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_6:
+    type: conv_dw
+    kernel: [3, 3, 128]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_7:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_8:
+    type: conv_dw
+    kernel: [3, 3, 128]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_9:
+    type: conv_normal
+    kernel: [1, 1, 128, 256]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_10:
+    type: conv_dw
+    kernel: [3, 3, 256]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_11:
+    type: conv_normal
+    kernel: [1, 1, 256, 256]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_12:
+    type: conv_dw
+    kernel: [3, 3, 256]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_13:
+    type: conv_normal
+    kernel: [1, 1, 256, 512]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_14:
+    type: conv_dw
+    kernel: [3, 3, 512]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_15:
+    type: conv_normal
+    kernel: [1, 1, 512, 512]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_16:
+    type: conv_dw
+    kernel: [3, 3, 512]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_17:
+    type: conv_normal
+    kernel: [1, 1, 512, 512]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_18:
+    type: conv_dw
+    kernel: [3, 3, 512]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_19:
+    type: conv_normal
+    kernel: [1, 1, 512, 512]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_20:
+    type: conv_dw
+    kernel: [3, 3, 512]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_21:
+    type: conv_normal
+    kernel: [1, 1, 512, 512]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_22:
+    type: conv_dw
+    kernel: [3, 3, 512]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_23:
+    type: conv_normal
+    kernel: [1, 1, 512, 512]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_24:
+    type: conv_dw
+    kernel: [3, 3, 512]
+    stride: 2
+    padding: 1
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_25:
+    type: conv_normal
+    kernel: [1, 1, 512, 1024]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_26:
+    type: conv_dw
+    kernel: [3, 3, 1024]
+    stride: 1
+    padding: 2
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer
+  conv_27:
+    type: conv_normal
+    kernel: [1, 1, 1024, 1024]
+    stride: 1
+    padding: 0
+    norm: batch_norm
+    activation: ReLu
+    input: prev_layer

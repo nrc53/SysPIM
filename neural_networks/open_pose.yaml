@@ -1,0 +1,1032 @@
+network_name: open_pose 
+network_type: pose_estimation
+inp_dims: [227, 227, 3]
+layers:
+  conv_1:
+    type: conv_normal
+    kernel: [3, 3, 3, 64]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_2] # output_dim: [227, 227, 64] 
+    num: 0 
+  conv_2:
+    type: conv_normal
+    kernel: [3, 3, 64, 64]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [pool_1] # output_dim: [227, 227, 64] 
+    num: 1 
+  pool_1:
+    type: pool
+    pool_op: max
+    kernel: [2, 2]
+    stride: [2, 2]
+    input: prev_layer
+    output: [conv_3] # output_dim: [114, 114, 64]
+    num: 2
+  conv_3:
+    type: conv_normal
+    kernel: [3, 3, 64, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_4] # output_dim: [114, 114, 128] 
+    num: 3 
+  conv_4:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [pool_2] # output_dim: [114, 114, 128] 
+    num: 4 
+  pool_2:
+    type: pool
+    pool_op: max
+    kernel: [2, 2]
+    stride: [2, 2]
+    input: prev_layer
+    output: [conv_5] # output_dim: [58, 58, 128]
+    num: 5
+  conv_5:
+    type: conv_normal
+    kernel: [3, 3, 128, 256]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_6] # output_dim: [58, 58, 256] 
+    num: 6 
+  conv_6:
+    type: conv_normal
+    kernel: [3, 3, 256, 256]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_7] # output_dim: [58, 58, 256] 
+    num: 7 
+  conv_7:
+    type: conv_normal
+    kernel: [3, 3, 256, 256]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_8] # output_dim: [58, 58, 256] 
+    num: 8
+  conv_8:
+    type: conv_normal
+    kernel: [3, 3, 256, 256]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [pool_3] # output_dim: [58, 58, 256] 
+    num: 9
+  pool_3:
+    type: pool
+    pool_op: max
+    kernel: [2, 2]
+    stride: [2, 2]
+    input: prev_layer
+    output: [conv_9] # output_dim: [30, 30, 256]
+    num: 10
+  conv_9:
+    type: conv_normal
+    kernel: [3, 3, 256, 512]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_10] # output_dim: [30, 30, 512] 
+    num: 11
+  conv_10:
+    type: conv_normal
+    kernel: [3, 3, 512, 512]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_11] # output_dim: [30, 30, 512] 
+    num: 12
+  conv_11:
+    type: conv_normal
+    kernel: [3, 3, 512, 256]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_12] # output_dim: [30, 30, 256] 
+    num: 13        
+  conv_12:
+    type: conv_normal
+    kernel: [3, 3, 256, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_13, conv_18, concat_1] # output_dim: [30, 30, 128] 
+    num: 14        
+# Independent parallel branches starts from here
+# Level 1, Branch 1
+  conv_13:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_14] # output_dim: [30, 30, 128] 
+    num: 15 
+  conv_14:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_15] # output_dim: [30, 30, 128] 
+    num: 16 
+  conv_15:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_16] # output_dim: [30, 30, 128] 
+    num: 17     
+  conv_16:
+    type: conv_normal
+    kernel: [1, 1, 128, 512]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_17] # output_dim: [30, 30, 512] 
+    num: 18  
+  conv_17:
+    type: conv_normal
+    kernel: [1, 1, 512, 38]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_1] # output_dim: [30, 30, 38] 
+    num: 19     
+# Level 1, Branch 2
+  conv_18:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: conv_12 
+    output: [conv_19] # output_dim: [30, 30, 128] 
+    num: 20
+    parallel_op: conv_13 
+  conv_19:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_20] # output_dim: [30, 30, 128] 
+    num: 21
+    parallel_op: conv_13 
+  conv_20:
+    type: conv_normal
+    kernel: [3, 3, 128, 128]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_21] # output_dim: [30, 30, 128] 
+    num: 22
+    parallel_op: conv_13     
+  conv_21:
+    type: conv_normal
+    kernel: [1, 1, 128, 512]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_22] # output_dim: [30, 30, 512] 
+    num: 23 
+    parallel_op: conv_13 
+  conv_22:
+    type: conv_normal
+    kernel: [1, 1, 512, 19]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_1] # output_dim: [30, 30, 19] 
+    num: 24
+    parallel_op: conv_13
+# End of Level 1
+  concat_1:
+    type: concat
+    input: [conv_12, conv_17, conv_22]
+    output: [conv_23, conv_30] # output_dim: [30, 30, 185]
+    num: 25
+# Level 2, Branch 1   
+  conv_23:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_24] # output_dim: [30, 30, 128] 
+    num: 26 
+  conv_24:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_25] # output_dim: [30, 30, 128] 
+    num: 27 
+  conv_25:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_26] # output_dim: [30, 30, 128] 
+    num: 28     
+  conv_26:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_27] # output_dim: [30, 30, 128] 
+    num: 29  
+  conv_27:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_28] # output_dim: [30, 30, 128] 
+    num: 30 
+  conv_28:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_29] # output_dim: [30, 30, 128] 
+    num: 31       
+  conv_29:
+    type: conv_normal
+    kernel: [1, 1, 128, 38]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_2] # output_dim: [30, 30, 38] 
+    num: 32 
+# Level 2, Branch 2   
+  conv_30:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: concat_1  
+    output: [conv_31] # output_dim: [30, 30, 128] 
+    num: 33 
+    parallel_op: conv_23
+  conv_31:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_32] # output_dim: [30, 30, 128] 
+    num: 34 
+    parallel_op: conv_23
+  conv_32:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_33] # output_dim: [30, 30, 128] 
+    num: 35
+    parallel_op: conv_23     
+  conv_33:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_34] # output_dim: [30, 30, 128] 
+    num: 36
+    parallel_op: conv_23  
+  conv_34:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_35] # output_dim: [30, 30, 128] 
+    num: 37
+    parallel_op: conv_23 
+  conv_35:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_36] # output_dim: [30, 30, 128] 
+    num: 38  
+    parallel_op: conv_23     
+  conv_36:
+    type: conv_normal
+    kernel: [1, 1, 128, 19]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_2] # output_dim: [30, 30, 19] 
+    num: 39 
+    parallel_op: conv_23
+# End of Level 2
+  concat_2:
+    type: concat
+    input: [conv_12, conv_29, conv_36]
+    output: [conv_37, conv_44] # output_dim: [30, 30, 185]
+    num: 40
+# Level 3, Branch 1  
+  conv_37:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_38] # output_dim: [30, 30, 128] 
+    num: 41
+  conv_38:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_39] # output_dim: [30, 30, 128] 
+    num: 42 
+  conv_39:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_40] # output_dim: [30, 30, 128] 
+    num: 43     
+  conv_40:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_41] # output_dim: [30, 30, 128] 
+    num: 44  
+  conv_41:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_42] # output_dim: [30, 30, 128] 
+    num: 45 
+  conv_42:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_43] # output_dim: [30, 30, 128] 
+    num: 46       
+  conv_43:
+    type: conv_normal
+    kernel: [1, 1, 128, 38]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_3] # output_dim: [30, 30, 38] 
+    num: 47 
+# Level 3, Branch 2   
+  conv_44:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: concat_2  
+    output: [conv_45] # output_dim: [30, 30, 128] 
+    num: 48 
+    parallel_op: conv_37
+  conv_45:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_46] # output_dim: [30, 30, 128] 
+    num: 49 
+    parallel_op: conv_37
+  conv_46:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_47] # output_dim: [30, 30, 128] 
+    num: 50
+    parallel_op: conv_37     
+  conv_47:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_48] # output_dim: [30, 30, 128] 
+    num: 51
+    parallel_op: conv_37  
+  conv_48:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_49] # output_dim: [30, 30, 128] 
+    num: 52
+    parallel_op: conv_37 
+  conv_49:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_50] # output_dim: [30, 30, 128] 
+    num: 53  
+    parallel_op: conv_37     
+  conv_50:
+    type: conv_normal
+    kernel: [1, 1, 128, 19]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_3] # output_dim: [30, 30, 19] 
+    num: 54
+    parallel_op: conv_37
+# End of Level 3 
+  concat_3:
+    type: concat
+    input: [conv_12, conv_43, conv_50]
+    output: [conv_51, conv_58] # output_dim: [30, 30, 185]
+    num: 55
+# Level 4, Branch 1  
+  conv_51:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_52] # output_dim: [30, 30, 128] 
+    num: 56
+  conv_52:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_53] # output_dim: [30, 30, 128] 
+    num: 57 
+  conv_53:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_54] # output_dim: [30, 30, 128] 
+    num: 58     
+  conv_54:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_55] # output_dim: [30, 30, 128] 
+    num: 59 
+  conv_55:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_56] # output_dim: [30, 30, 128] 
+    num: 60 
+  conv_56:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_57] # output_dim: [30, 30, 128] 
+    num: 61       
+  conv_57:
+    type: conv_normal
+    kernel: [1, 1, 128, 38]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_4] # output_dim: [30, 30, 38] 
+    num: 62 
+# Level 4, Branch 2   
+  conv_58:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: concat_3  
+    output: [conv_59] # output_dim: [30, 30, 128] 
+    num: 63 
+    parallel_op: conv_51
+  conv_59:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_60] # output_dim: [30, 30, 128] 
+    num: 64 
+    parallel_op: conv_51
+  conv_60:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_61] # output_dim: [30, 30, 128] 
+    num: 65
+    parallel_op: conv_51     
+  conv_61:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_62] # output_dim: [30, 30, 128] 
+    num: 66
+    parallel_op: conv_51  
+  conv_62:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_63] # output_dim: [30, 30, 128] 
+    num: 67
+    parallel_op: conv_51 
+  conv_63:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_64] # output_dim: [30, 30, 128] 
+    num: 68  
+    parallel_op: conv_51     
+  conv_64:
+    type: conv_normal
+    kernel: [1, 1, 128, 19]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_4] # output_dim: [30, 30, 19] 
+    num: 69
+    parallel_op: conv_51
+# End of Level 4
+  concat_4:
+    type: concat
+    input: [conv_12, conv_57, conv_64]
+    output: [conv_65, conv_72] # output_dim: [30, 30, 185]
+    num: 70
+# Level 5, Branch 1  
+  conv_65:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_66] # output_dim: [30, 30, 128] 
+    num: 71
+  conv_66:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_67] # output_dim: [30, 30, 128] 
+    num: 72 
+  conv_67:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_68] # output_dim: [30, 30, 128] 
+    num: 73     
+  conv_68:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_69] # output_dim: [30, 30, 128] 
+    num: 74 
+  conv_69:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_70] # output_dim: [30, 30, 128] 
+    num: 75 
+  conv_70:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_71] # output_dim: [30, 30, 128] 
+    num: 76       
+  conv_71:
+    type: conv_normal
+    kernel: [1, 1, 128, 38]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_5] # output_dim: [30, 30, 38] 
+    num: 77
+# Level 5, Branch 2   
+  conv_72:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: concat_4  
+    output: [conv_73] # output_dim: [30, 30, 128] 
+    num: 78 
+    parallel_op: conv_65
+  conv_73:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_74] # output_dim: [30, 30, 128] 
+    num: 79 
+    parallel_op: conv_65
+  conv_74:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_75] # output_dim: [30, 30, 128] 
+    num: 80
+    parallel_op: conv_65     
+  conv_75:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_76] # output_dim: [30, 30, 128] 
+    num: 81
+    parallel_op: conv_65  
+  conv_76:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_77] # output_dim: [30, 30, 128] 
+    num: 82
+    parallel_op: conv_65 
+  conv_77:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_78] # output_dim: [30, 30, 128] 
+    num: 83  
+    parallel_op: conv_65     
+  conv_78:
+    type: conv_normal
+    kernel: [1, 1, 128, 19]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_5] # output_dim: [30, 30, 19] 
+    num: 84
+    parallel_op: conv_65
+# End of Level 5
+  concat_5:
+    type: concat
+    input: [conv_12, conv_71, conv_78]
+    output: [conv_79, conv_86] # output_dim: [30, 30, 185]
+    num: 85
+# Level 6, Branch 1  
+  conv_79:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_80] # output_dim: [30, 30, 128] 
+    num: 86
+  conv_80:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_81] # output_dim: [30, 30, 128] 
+    num: 87 
+  conv_81:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_82] # output_dim: [30, 30, 128] 
+    num: 88     
+  conv_82:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_83] # output_dim: [30, 30, 128] 
+    num: 89 
+  conv_83:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_84] # output_dim: [30, 30, 128] 
+    num: 90 
+  conv_84:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_85] # output_dim: [30, 30, 128] 
+    num: 91       
+  conv_85:
+    type: conv_normal
+    kernel: [1, 1, 128, 38]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_6] # output_dim: [30, 30, 38] 
+    num: 92
+# Level 6, Branch 2   
+  conv_86:
+    type: conv_normal
+    kernel: [7, 7, 185, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: concat_5  
+    output: [conv_87] # output_dim: [30, 30, 128] 
+    num: 93 
+    parallel_op: conv_79
+  conv_87:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_88] # output_dim: [30, 30, 128] 
+    num: 94 
+    parallel_op: conv_79
+  conv_88:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_89] # output_dim: [30, 30, 128] 
+    num: 95
+    parallel_op: conv_79     
+  conv_89:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_90] # output_dim: [30, 30, 128] 
+    num: 96
+    parallel_op: conv_79  
+  conv_90:
+    type: conv_normal
+    kernel: [7, 7, 128, 128]
+    stride: 1
+    padding: 5
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_91] # output_dim: [30, 30, 128] 
+    num: 97
+    parallel_op: conv_79 
+  conv_91:
+    type: conv_normal
+    kernel: [1, 1, 128, 128]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_92] # output_dim: [30, 30, 128] 
+    num: 98  
+    parallel_op: conv_79     
+  conv_92:
+    type: conv_normal
+    kernel: [1, 1, 128, 19]
+    stride: 1
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [concat_6] # output_dim: [30, 30, 19] 
+    num: 99
+    parallel_op: conv_79
+# End of Level 6
