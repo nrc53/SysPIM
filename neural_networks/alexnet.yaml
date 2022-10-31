@@ -1,0 +1,107 @@
+network_name: alexnet 
+network_type: classification
+inp_dims: [227, 227, 3]
+layers:
+  conv_1:
+    type: conv_normal
+    kernel: [11, 11, 3, 96]
+    stride: 4
+    padding: 1
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [pool_1] # output_dim: [55, 55, 96] 
+    num: 0 
+  pool_1:
+    type: pool
+    pool_op: max
+    kernel: [3, 3]
+    stride: [2, 2]
+    input: prev_layer
+    output: [conv_2] # output_dim: [27, 27, 96] 
+    num: 1 
+  conv_2:
+    type: conv_normal
+    kernel: [5, 5, 96, 256]
+    stride: 1
+    padding: 4
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [pool_2] # output_dim: [27, 27, 256] 
+    num: 2 
+  pool_2:
+    type: pool
+    pool_op: max
+    kernel: [3, 3]
+    stride: [2, 2]
+    input: prev_layer  
+    output: [conv_3] # output_dim: [13, 13, 256] 
+    num: 3 
+  conv_3:
+    type: conv_normal
+    kernel: [3, 3, 256, 384]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_4] # output_dim: [13, 13, 384] 
+    num: 4 
+  conv_4:
+    type: conv_normal
+    kernel: [3, 3, 384, 384]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [conv_5] # output_dim: [13, 13, 384] 
+    num: 5 
+  conv_5:
+    type: conv_normal
+    kernel: [3, 3, 384, 256]
+    stride: 1
+    padding: 2
+    norm: None
+    activation: None
+    input: prev_layer  
+    output: [pool_3] # output_dim: [13, 13, 256] 
+    num: 6 
+  pool_3:
+    type: pool
+    pool_op: max
+    kernel: [3, 3]
+    stride: [2, 2]
+    input: prev_layer  
+    output: [fc_1] # output_dim: [6, 6, 256] 
+    num: 7 
+  fc_1:
+    type: fc
+    kernel: [9216, 4096]
+    activation: ReLu
+    input: prev_layer
+    output: [fc_2]
+    flatten: True
+    num: 8 # output_dim: [1, 4096]
+  fc_2:
+    type: fc
+    kernel: [4096, 4096]
+    activation: ReLu
+    input: prev_layer
+    output: [fc_3]
+    num: 9 # output_dim: [1, 4096]
+  # fc_3:
+    # type: fc
+    # kernel: [4096, 1000]
+    # activation: None
+    # input: prev_layer
+    # output: []
+    # num: 10 # output_dim: [1, 1000]
+  # fc_4:
+    # type: fc
+    # kernel: [4096, 1000]
+    # activation: None
+    # input: prev_layer
+    # output: []
+    # num: 10 # output_dim: [1, 1000]
