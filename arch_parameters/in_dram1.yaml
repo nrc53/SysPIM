@@ -1,0 +1,10 @@
+config: in_dram1
+num_banks: 16
+mac_units_per_bank: 32
+min_mac_dim: 8
+cycle_time: 1e-9
+power:
+  mac_power: 1.4216e-3 #32-wide mac unit
+  mult_power: 183.0358e-6
+  alu_power: 109.9709e-6
+  dram_energy_bit: 3.97e-12
