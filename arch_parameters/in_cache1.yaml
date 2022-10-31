@@ -1,0 +1,15 @@
+config: in_cache1
+comp_tile_size: [8, 8]
+cache_size: 32 #in MB
+write_time: 1e-9
+comp_time: 1e-9
+offchip_bw: 128 #GBPS
+power:
+  mat_tile: [8, 8]
+  mat_tile_energy: 700.325e-12
+  num_add: 8
+  add_energy: 17.845e-12
+  num_mult: 1
+  mult_energy: 10.19e-12
+  sram_energy_bit: 0.13e-12 # for 8-bytes SRAM access takes 8.5pJ
+  dram_energy_bit: 3.97e-12

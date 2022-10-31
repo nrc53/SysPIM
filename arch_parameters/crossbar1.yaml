@@ -1,0 +1,31 @@
+config: crossbar1
+array_dims: [128, 128]
+array_num: 2048
+cell_precsn: 2
+num_adc: 4
+adc_precsn: 6
+num_dac: 16
+dac_precsn: 2
+row_activations: 16
+num_alus: 4096
+write_time: 1e-9
+mac_time: 2e-9
+offchip_bw: 128 #GBPS
+static_weights: True
+# per-array peripherals and power metrics
+power:
+  rram_dims: [128, 128]
+  rram_array: 0.3e-3
+  num_adc: 4
+  num_dac: 16
+  dac: 0.0008e-3 
+  adc: 2.57e-3 
+  array_cols: 128
+  s_h: 0.0025e-3 
+  s_a: 0.24e-3
+  inp_buffer: 0.034e-3
+  output_buffer: 0.068e-3
+  sram_access_bytes: 8
+  sram_access: 8.6e-12
+  bus: 0.0828e-3
+  dram_energy_bit: 3.97e-12
